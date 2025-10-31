@@ -1,26 +1,38 @@
 
-# import the main window object (mw) from aqt
 from aqt import mw
-# import the "show info" tool from utils.py
-from aqt.utils import showInfo, qconnect
-# import all of the Qt GUI library
-from aqt.qt import *
+from aqt.operations import QueryOp
+from aqt.theme import theme_manager
 
-# We're going to add a menu item below. First we want to create a function to
-# be called when the menu item is activated.
+# Add vendor dir to path so that dasbus is importable.
+vendor_dir = os.path.join(os.path.dirname(__file__), "vendor")
+sys.path.insert(0, vendor_dir)
 
-def testFunction() -> None:
-    # get the number of cards in the current collection, which is stored in
-    # the main window
-    cardCount = mw.col.card_count()
-    # show a message box
-    showInfo("Card count: %d" % cardCount)
+from dasbus.connection import SessionMessageBus
+from dasbus.loop import EventLoop
 
-# create a new menu item, "test"
-action = QAction("test", mw)
-# set it to call testFunction when it's clicked
-qconnect(action.triggered, testFunction)
-# and add it to the tools menu
-mw.form.menuTools.addAction(action)
+def bus_listener_thread():
 
+    bus = SessionMessageBus()
+    loop = EventLoop()
+
+    proxy = bus.get_proxy(
+        "org.freedesktop.impl.portal.Settings",   # Bus name
+        "/org/freedesktop/portal/desktop",        # Object path
+    )
+
+    def callback(path, setting, value):
+        # Reload theme if the light/dark mode property has changed value.
+        if path == "org.freedesktop.appearance" and setting == "color-scheme":
+            theme_manager.apply_style()
+
+    proxy.SettingChanged.connect(callback)
+
+    loop.run()
+
+dbus_op = QueryOp(
+    parent = mw,
+    op=lambda _: bus_listener_thread()
+)
+
+dbus_op.run_in_background()
 
