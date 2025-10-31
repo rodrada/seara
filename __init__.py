@@ -1,5 +1,6 @@
 
 import os
+import sys
 from aqt import mw
 from aqt.operations import QueryOp
 from aqt.theme import theme_manager
