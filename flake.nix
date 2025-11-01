@@ -31,7 +31,7 @@
             ];
         };
 
-        packages."${system}".default = pkgs.callPackage package { };
+        packages."${system}".default = pkgs.callPackage package { pygobject3 = pkgs.python313Packages.pygobject3; };
     };
 }
 
