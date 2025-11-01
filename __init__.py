@@ -40,6 +40,9 @@ async def bus_listener():
 
     await profile_close_event.wait()
 
+def on_success(_):
+    pass
+
 def on_profile_open():
     profile_close_event = asyncio.Event()
     dbus_op = QueryOp(
