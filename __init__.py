@@ -44,6 +44,7 @@ def on_success(_):
     pass
 
 def on_profile_open():
+    global profile_close_event
     profile_close_event = asyncio.Event()
     dbus_op = QueryOp(
         parent=mw,
