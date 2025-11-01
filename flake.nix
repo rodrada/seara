@@ -26,7 +26,7 @@
 
                 # The Python code we want to inject.
                 # It adds a list of paths to the beginning of sys.path.
-                injection_code="import sys; sys.path = [p for p in '${pkgs.lib.makePythonPath buildInputs}'.split(':') if p] + sys.path"
+                injection_code="import sys; sys.path = [p for p in '${pkgs.python3.pkgs.makePythonPath buildInputs}'.split(':') if p] + sys.path"
 
                 # Use sed to replace our placeholder with the real code.
                 # The '@' symbols are used as delimiters for sed to avoid conflicts with '/' in paths.
