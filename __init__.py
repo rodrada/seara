@@ -55,6 +55,8 @@ async def bus_listener():
         # Disconnect from the bus if possible
         if 'bus' in locals() and bus.connected:
             bus.disconnect()
+        if dbus_loop and dbus_loop.is_running():
+            dbus_loop.stop()
 
 
 def run_dbus_loop():
@@ -76,6 +78,7 @@ def run_dbus_loop():
 
     # Clean up after the loop is stopped
     dbus_loop.close()
+    dbus_loop = None
 
 
 def on_profile_open():
@@ -92,11 +95,8 @@ def on_profile_close():
     global dbus_thread, dbus_loop, profile_close_event
 
     if dbus_loop and dbus_loop.is_running():
-        # --- Thread-safe operations to stop the loop ---
-        # 1. Set the event to allow bus_listener() to finish
+        # Set the event to allow bus_listener() to finish
         dbus_loop.call_soon_threadsafe(profile_close_event.set)
-        # 2. Stop the event loop itself
-        dbus_loop.call_soon_threadsafe(dbus_loop.stop)
 
     if dbus_thread:
         # Wait for the thread to fully terminate
