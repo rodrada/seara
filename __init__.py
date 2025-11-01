@@ -10,7 +10,7 @@ vendor_dir = os.path.join(os.path.dirname(__file__), "vendor")
 sys.path.insert(0, vendor_dir)
 
 # This will get replaced on postInstall to make sure PyGObject is found.
-# @NIX_PYTHON_PATH_INJECTION@
+# NIX_PYTHON_PATH_INJECTION
 
 try:
     # This import will fail if the user doesn't have PyGObject installed

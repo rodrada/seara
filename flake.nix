@@ -30,7 +30,7 @@
 
                 # Use sed to replace our placeholder with the real code.
                 # The '@' symbols are used as delimiters for sed to avoid conflicts with '/' in paths.
-                sed -i "s@# @NIX_PYTHON_PATH_INJECTION@@$injection_code@" "$target_file"
+                sed -i "s@# NIX_PYTHON_PATH_INJECTION@$injection_code@" "$target_file"
             '';
         };
     in
