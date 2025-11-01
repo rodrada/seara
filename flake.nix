@@ -19,7 +19,7 @@
                 ];
             };
             passthru.updateSript = nix-update-script { };
-            buildInputs = [ pygobject3 ];
+            propagatedBuildInputs = [ pygobject3 ];
         };
     in
     {
