@@ -44,6 +44,7 @@ try:
 
 except ImportError:
 
+    from aqt import gui_hooks
     from aqt.utils import showWarning
 
     def displayDependencyWarning():
@@ -57,5 +58,5 @@ except ImportError:
         """
         showWarning(msg, parent=mw, textFormat="rich")
 
-    mw.addonManager.add_action(__name__, displayDependencyWarning)
+    gui_hooks.main_window_did_init.append(displayDependencyWarning)
 
