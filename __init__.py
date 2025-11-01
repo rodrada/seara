@@ -39,8 +39,9 @@ async def bus_listener():
     await asyncio.Event().wait()
 
 dbus_op = QueryOp(
-    parent = mw,
+    parent=mw,
     op=lambda _: asyncio.run(bus_listener())
+    success=lambda: pass    # Don't do anything on listener exit.
 )
 
 dbus_op.run_in_background()
