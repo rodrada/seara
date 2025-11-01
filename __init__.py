@@ -53,6 +53,6 @@ def on_profile_close():
     # Tell the asyncio event loop to close.
     profile_close_event.set()
 
-gui_hooks.profile_did_open(on_profile_open)
-gui_hooks.profile_will_close(on_profile_close)
+gui_hooks.profile_did_open.append(on_profile_open)
+gui_hooks.profile_will_close.append(on_profile_close)
 
