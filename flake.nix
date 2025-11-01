@@ -8,7 +8,7 @@
     let
         system = "x86_64-linux";
         pkgs = import nixpkgs { inherit system; };
-        package = { anki-utils, nix-update-script }: anki-utils.buildAnkiAddon {
+        package = { anki-utils, nix-update-script, pygobject3 }: anki-utils.buildAnkiAddon {
             pname = "ankidarkmodefix";
             version = "1.0";
             src = pkgs.lib.fileset.toSource {
@@ -19,6 +19,7 @@
                 ];
             };
             passthru.updateSript = nix-update-script { };
+            buildInputs = [ pygobject3 ];
         };
     in
     {
@@ -26,6 +27,7 @@
             packages = with pkgs; [
                 python313
                 python313Packages.pip
+                python313Packages.pygobject3
             ];
         };
 
