@@ -3,8 +3,6 @@
   Anki Dark Mode Fix
 </h1>
 
-![Showcase GIF](examples/clip.gif)
-
 # What's this for?
 
 On Linux, Anki does not immediately detect modifications in the system's theme polarity (light/dark mode).
