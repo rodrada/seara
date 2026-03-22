@@ -1,6 +1,9 @@
 
 <h1 align="center">
   Seară
+  <div>
+  <sub><sup>/ˈse̯arə/</sup></sub>
+  </div>
 </h1>
 
 https://github.com/user-attachments/assets/f4e5ebf1-910f-4288-84ad-7fb0d3a31fad
